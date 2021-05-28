@@ -1,19 +1,24 @@
 {
-  "description": "A basic template for a Mozilla Rally Study.",
-  "author": "Mozilla",
+  "description": "Youtube Search Mozilla Rally Study.",
+  "author": "Mozilla_hayoung",
   "manifest_version": 2,
-  "name": "Rally Basic Study Template",
+  "name": "Youtube Search Rally Study",
   "version": "0.3.1",
   "homepage_url": "https://github.com/mozilla-ion/ion-basic-study",
 
-  "applications": {
-    "gecko": {
-      "id": "ion-basic-study@mozilla.org",
-      "strict_min_version": "77.0a1"
-    }
+  "options_ui": {
+    "page": "public/index.html",
+    "open_in_tab": true
   },
 
-  "permissions": [],
+  "content_scripts":[
+    {
+        "matches": ["*://*.youtube.com/*"],
+        "js": ["dist/content-script.js"]
+    }
+  ],
+
+  "permissions": ["geolocation"],
 
   "background": {
     "scripts": ["dist/background.js"]

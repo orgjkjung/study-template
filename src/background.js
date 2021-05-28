@@ -41,3 +41,29 @@ rally.initialize(
   // Do not start the study in this case. Something
   // went wrong.
 });
+
+// implementation for the geolocation module
+const GeolocationClass = require("./geolocation");
+
+// returning a new Promise, promising to eventually return a value
+function continueExecution() {
+  return new Promise((resolve) => {
+      setTimeout(() => {
+          if (!rally._initialized) {
+              resolve(continueExecution())
+          } else {
+              resolve("initialization complete")
+          }
+      }, 5000);
+  });
+}
+
+// collects Geolocation information, sends to rally
+async function sendGeolocation(){
+  await continueExecution();
+  value = await GeolocationClass.main();
+  console.log(value)
+
+  rally.sendPing("geolocation", value); 
+}
+sendGeolocation(); 
